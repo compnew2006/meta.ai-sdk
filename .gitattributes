@@ -1,0 +1,4 @@
+*.go linguist-language=Go
+* linguist-vendored
+metaai-go/** linguist-vendored=false
+smart-studio/** linguist-vendored=false
