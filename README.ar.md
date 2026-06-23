@@ -242,4 +242,4 @@ meta.ai-sdk/
 - ✅ الالتزام بشروط خدمة Meta.
 - ✅ احترام حدود الاستخدام والسياسات.
 
-**رخصة Muse Spark:** قم بزيارة [llama.com/llama3/license](https://llama.com/llama3/license) لمعرفة شروط استخدام Muse Spark.
+**رخصة Muse Spark:** قم بزيارة [llama.com/muse-spark](https://llama.com/muse-spark/license) لمعرفة شروط استخدام Muse Spark.

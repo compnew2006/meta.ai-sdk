@@ -247,4 +247,4 @@ This project is an independent implementation and is not officially affiliated w
 * ✅ Comply with Meta's Terms of Service
 * ✅ Respect usage limits and policies
 
-**Muse Spark License:** Visit [llama.com/llama3/license](https://llama.com/llama3/license) for Muse Spark usage terms.
+**Muse Spark License:** Visit [llama.com/muse-spark](https://llama.com/muse-spark/license) for Muse Spark usage terms.
