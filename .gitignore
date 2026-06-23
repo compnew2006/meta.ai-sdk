@@ -1,0 +1,57 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# Editor/IDE configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Diagnostics/Tests
+.playwright-mcp/
+coverage.out
+coverage.html
+
+# Local Environment Variables (CRITICAL: prevents credential leaks)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.sync
+
+# Node/React dependencies and builds
+node_modules/
+jspm_packages/
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# Go build outputs
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+metaai-go/jenta/dist/
+metaai-go/ui/dist/

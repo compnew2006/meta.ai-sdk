@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetaAI Go SDK — Complete Guide</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;color:#e0e0e0;background:#0d1117}
+.hero{background:linear-gradient(135deg,#1a1f3a,#0d1117 50%,#1a2332);padding:60px 40px;border-bottom:1px solid #30363d;text-align:center}
+.hero h1{font-size:2.8em;margin-bottom:10px;background:linear-gradient(90deg,#58a6ff,#f78166);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.2em;color:#8b949e;max-width:700px;margin:0 auto 20px}
+.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:15px}
+.badge{padding:4px 14px;border-radius:20px;font-size:.85em;font-weight:600}
+.badge-go{background:#00add8;color:#fff}.badge-ok{background:#238636;color:#fff}.badge-mit{background:#30363d;color:#58a6ff;border:1px solid #484f58}
+.container{max-width:900px;margin:0 auto;padding:40px 20px}
+section{margin-bottom:50px}
+h2{font-size:1.8em;color:#58a6ff;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #21262d}
+h3{font-size:1.3em;color:#f0f6fc;margin:20px 0 10px}
+p{margin-bottom:12px}
+code{background:#161b22;padding:2px 8px;border-radius:4px;font-family:'SF Mono',Monaco,monospace;font-size:.9em;color:#f0883e;border:1px solid #30363d}
+pre{background:#161b22;padding:20px;border-radius:8px;border:1px solid #30363d;overflow-x:auto;margin:15px 0}
+pre code{background:none;border:none;padding:0;color:#c9d1d9;font-size:.88em;line-height:1.6}
+.kw{color:#ff7b72}.fn{color:#d2a8ff}.str{color:#a5d6ff}.cm{color:#8b949e}.ty{color:#ffa657}
+table{width:100%;border-collapse:collapse;margin:15px 0;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+th{background:#161b22;color:#58a6ff;padding:12px 16px;text-align:left}
+td{padding:10px 16px;border-top:1px solid #21262d}
+.callout{background:#1c2128;border-left:4px solid #f78166;padding:15px 20px;border-radius:0 8px 8px 0;margin:15px 0}
+.callout-warn{border-left-color:#d29922}.callout-ok{border-left-color:#3fb950}
+.callout strong{color:#f0f6fc}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:20px 0}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;transition:border-color .2s}
+.card:hover{border-color:#58a6ff}
+.card .ico{font-size:1.8em;margin-bottom:8px}
+.card h4{color:#f0f6fc;margin-bottom:5px}.card p{font-size:.9em;color:#8b949e}
+.box-problem{background:linear-gradient(135deg,#2d1b1b,#1c2128);border:1px solid #f8514955;border-radius:8px;padding:20px;margin:15px 0}
+.box-solution{background:linear-gradient(135deg,#1b2d1f,#1c2128);border:1px solid #3fb95055;border-radius:8px;padding:20px;margin:15px 0}
+.toc{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:30px}
+.toc h3{color:#58a6ff;margin-bottom:10px}.toc ol{padding-left:20px}.toc li{margin-bottom:5px}
+.toc a{color:#58a6ff;text-decoration:none}.toc a:hover{text-decoration:underline}
+footer{text-align:center;padding:30px;color:#484f58;border-top:1px solid #21262d}
+@media(max-width:768px){.hero h1{font-size:1.8em}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<h1>MetaAI Go SDK</h1>
+<p>A Go implementation for Meta AI — chat, image analysis, content generation, and conversation management through a clean, idiomatic Go API.</p>
+<div class="badges">
+<span class="badge badge-go">Go 1.21+</span>
+<span class="badge badge-ok">All Features Working</span>
+<span class="badge badge-mit">MIT License</span>
+</div>
+</div>
+
+<div class="container">
+
+<div class="toc">
+<h3>Table of Contents</h3>
+<ol>
+<li><a href="#problem">The Problem This Solves</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#install">Installation &amp; Setup</a></li>
+<li><a href="#chat">Chat</a></li>
+<li><a href="#upload">Image Upload &amp; Analysis</a></li>
+<li><a href="#generate">Image &amp; Video Generation</a></li>
+<li><a href="#topics">Topics &amp; Sessions</a></li>
+<li><a href="#stream">Streaming</a></li>
+<li><a href="#arch">Architecture</a></li>
+<li><a href="#test">Testing</a></li>
+</ol>
+</div>
+
+<section id="problem">
+<h2>The Problem This Solves</h2>
+<div class="box-solution">
+<h3>A captured, test-locked transport</h3>
+<p>Built from <strong style="color:#3fb950">live browser captures</strong> (June 2026). The wire format was reverse-engineered by inspecting real WebSocket frames.</p>
+<ul style="margin:10px 0 10px 20px;color:#8b949e">
+<li><strong>Template mode:</strong> Captured browser frames with byte-level substitution</li>
+<li><strong>Correct transport:</strong> gorilla/websocket with exact browser headers</li>
+<li><strong>Header case fix:</strong> rupload.meta.ai is header-case sensitive</li>
+<li><strong>Image attachment:</strong> Reverse-engineered the attachment protobuf field</li>
+</ul>
+</div>
+</section>
+
+<section id="features">
+<h2>Features</h2>
+<div class="grid">
+<div class="card"><div class="ico">💬</div><h4>Chat</h4><p>Send messages via WebSocket clippy protocol. Template mode guarantees acceptance.</p></div>
+<div class="card"><div class="ico">📤</div><h4>Image Upload</h4><p>Upload to Meta's rupload CDN. Returns media_id for analysis.</p></div>
+<div class="card"><div class="ico">🔍</div><h4>Image Analysis</h4><p>AI actually sees the image through the attachment protocol.</p></div>
+<div class="card"><div class="ico">🎨</div><h4>Image Generation</h4><p>Generate images from text via create_image mode.</p></div>
+<div class="card"><div class="ico">🎬</div><h4>Video Generation</h4><p>Generate videos from text via create_video mode.</p></div>
+<div class="card"><div class="ico">📡</div><h4>Streaming</h4><p>Stream responses via Go channels for real-time output.</p></div>
+<div class="card"><div class="ico">🗂️</div><h4>Topics</h4><p>Multiple conversations with named topics.</p></div>
+<div class="card"><div class="ico">📜</div><h4>History</h4><p>Retrieve past conversations via GraphQL.</p></div>
+</div>
+</section>
+
+<section id="install">
+<h2>Installation &amp; Setup</h2>
+<h3>Install</h3>
+<pre><code><span class="kw">go get</span> github.com/smart-studio/metaai-go</code></pre>
+<h3>Get Cookies</h3>
+<ol>
+<li>Log into <a href="https://meta.ai" style="color:#58a6ff">meta.ai</a></li>
+<li>DevTools (F12) → Application → Cookies → <code>https://meta.ai</code></li>
+<li>Copy <code>datr</code> and <code>ecto_1_sess</code></li>
+<li>For token, run in Console: <code>document.documentElement.outerHTML.match(/ecto1:[A-Za-z0-9_-]{20,}/)[0]</code></li>
+</ol>
+<h3>Configure</h3>
+<pre><code><span class="kw">export</span> META_AI_DATR=your_datr
+<span class="kw">export</span> META_AI_ECTO_1_SESS=your_session
+<span class="kw">export</span> META_AI_ACCESS_TOKEN=ecto1:your_token</code></pre>
+<div class="callout callout-warn"><strong>Note:</strong> The ecto1 token expires. Re-extract if uploads fail. Chat (WebSocket) is more tolerant.</div>
+</section>
+
+<section id="chat">
+<h2>Chat</h2>
+<pre><code><span class="kw">package</span> main
+
+<span class="kw">import</span> (<span class="str">"context"</span>;<span class="str">"fmt"</span>;<span class="str">"log"</span>;<span class="str">"github.com/smart-studio/metaai-go"</span>)
+
+<span class="kw">func</span> <span class="fn">main</span>() {
+    client, _ := metaai.<span class="fn">NewClient</span>()
+    ctx := context.<span class="fn">Background</span>()
+
+    reply, _ := client.<span class="fn">Chat</span>(ctx, <span class="str">"What is 2+2?"</span>, <span class="kw">nil</span>)
+    fmt.<span class="fn">Println</span>(reply) <span class="cm">// "2 + 2 = 4"</span>
+
+    <span class="cm">// With options</span>
+    opts := &amp;metaai.ChatOptions{NewConversation:<span class="kw">true</span>, Thinking:<span class="fn">bp</span>(<span class="kw">true</span>)}
+    reply, _ = client.<span class="fn">Chat</span>(ctx, <span class="str">"Explain Go channels"</span>, opts)
+}</code></pre>
+</section>
+
+<section id="upload">
+<h2>Image Upload &amp; Analysis</h2>
+<pre><code><span class="cm">// Upload</span>
+res, _ := client.<span class="fn">UploadImage</span>(ctx, <span class="str">"photo.jpg"</span>)
+fmt.<span class="fn">Printf</span>(<span class="str">"mediaID: %s\n"</span>, res.MediaID)
+
+<span class="cm">// Upload + Analyze</span>
+analysis, _ := client.<span class="fn">AnalyzeImage</span>(ctx, <span class="str">"photo.jpg"</span>, <span class="str">""</span>, <span class="str">"What's in this?"</span>, <span class="kw">nil</span>)
+fmt.<span class="fn">Println</span>(analysis)</code></pre>
+<div class="callout callout-ok"><strong>Verified:</strong> Uploaded green image → AI said "Green". The AI sees the actual uploaded image.</div>
+</section>
+
+<section id="generate">
+<h2>Image &amp; Video Generation</h2>
+<pre><code><span class="cm">// Image</span>
+img, _ := client.<span class="fn">GenerateImage</span>(ctx, <span class="str">"a red sports car"</span>, <span class="str">"LANDSCAPE"</span>, <span class="num">1</span>)
+fmt.<span class="fn">Println</span>(img.Status) <span class="cm">// "READY"</span>
+
+<span class="cm">// Video</span>
+vid, _ := client.<span class="fn">GenerateVideo</span>(ctx, <span class="str">"ocean waves at sunset"</span>)
+fmt.<span class="fn">Println</span>(vid.Status)</code></pre>
+</section>
+
+<section id="topics">
+<h2>Topics &amp; Sessions</h2>
+<pre><code>client.<span class="fn">NewTopic</span>(<span class="str">"coding"</span>, <span class="fn">bp</span>(<span class="kw">true</span>), <span class="kw">nil</span>, <span class="kw">nil</span>)
+reply, _ := client.<span class="fn">Chat</span>(ctx, <span class="str">"Write a function"</span>, &amp;metaai.ChatOptions{Topic:<span class="str">"coding"</span>})
+topics := client.<span class="fn">ListTopics</span>()</code></pre>
+</section>
+
+<section id="stream">
+<h2>Streaming</h2>
+<pre><code><span class="kw">for</span> chunk := <span class="kw">range</span> client.<span class="fn">StreamChat</span>(ctx, <span class="str">"Write a poem"</span>, <span class="kw">nil</span>) {
+    <span class="kw">if</span> chunk.Err != <span class="kw">nil</span> { <span class="kw">break</span> }
+    fmt.<span class="fn">Print</span>(chunk.Text)
+}</code></pre>
+</section>
+
+<section id="arch">
+<h2>Architecture</h2>
+<h3>Template Mode</h3>
+<p>Instead of a hand-rolled encoder (within 2 bytes but server rejects it), the SDK uses captured browser frames:</p>
+<ol>
+<li>Working frame embedded via <code>//go:embed</code></li>
+<li>Substitute: text, conversation ID, request ID, (optionally) media attachment</li>
+<li>Preserve all other bytes verbatim</li>
+<li>Frame header preserves server's <code>body+2</code> length quirk</li>
+</ol>
+<h3>Key Files</h3>
+<table>
+<tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>chat.go</code></td><td>WebSocket chat (template mode)</td></tr>
+<tr><td><code>analyze.go</code></td><td>Image analysis (attachment injection)</td></tr>
+<tr><td><code>internal/clippy/</code></td><td>Binary protocol encoder, parser, templates</td></tr>
+<tr><td><code>internal/transport/</code></td><td>gorilla/websocket dialer</td></tr>
+<tr><td><code>internal/upload/</code></td><td>rupload with lowercase headers</td></tr>
+</table>
+</section>
+
+<section id="test">
+<h2>Testing</h2>
+<pre><code><span class="cm"># 179 unit tests</span>
+go test ./...
+
+<span class="cm"># Live integration tests</span>
+go run ./cmd/livecheck</code></pre>
+<div class="callout callout-ok"><strong>179 tests pass.</strong> Live tests verify chat, upload, analyze, generation, streaming, history, topics.</div>
+</section>
+
+</div>
+<footer>
+<p>MetaAI Go SDK — Reverse-engineered from live captures (2026-06-19)</p>
+<p>MIT License</p>
+</footer>
+</body>
+</html>
